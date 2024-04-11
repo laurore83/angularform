@@ -1,0 +1,104 @@
+<form #myForm="ngForm" (ngSubmit)="onSubmit()">
+  <!-- Message d'erreurs du formulaire global -->
+  <div>
+    Form submitted ? {{ myForm.submitted }} Form valid ? {{ myForm.valid }} Form
+    invalid ? {{ myForm.invalid }}
+  </div>
+
+  <fieldset>
+    <label for="firstname-user">Firstname</label>
+    <input
+      placeholder="*"
+      id="firstname-user"
+      name="firstname-user"
+      type="text"
+      [(ngModel)]="newUser.firstname"
+      required
+      #firstname="ngModel"
+      minlength="3"
+      maxlength="15"
+    />
+    <!-- Message d'erreurs de l'input firstname -->
+    <div *ngIf="myForm.submitted && firstname.errors">
+      <span *ngIf="firstname.errors?.['required']"
+        >Le firstname est requis</span
+      >
+      <span *ngIf="firstname.errors?.['minlength']"
+        >Le firstname doit comporter au moins 3 caractères</span
+      >
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <label for="lastname-user">lastname</label>
+    <input
+      placeholder="*"
+      id="lastname-user"
+      name="lastname-user"
+      type="text"
+      [(ngModel)]="newUser.lastname"
+      #lastname="ngModel"
+      required
+      minlength="3"
+      maxlength="15"
+    />
+    <!-- Message d'erreurs de l'input lastname -->
+    <div *ngIf="myForm.submitted && lastname.errors">
+      <span *ngIf="lastname.errors?.['required']">Le lastname est requis</span>
+      <span *ngIf="lastname.errors?.['minlength']"
+        >Le lastname doit comporter au moins 3 caractères</span
+      >
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <label for="email-user">email</label>
+    <input
+      placeholder="*"
+      id="email-user"
+      name="email-user"
+      type="email"
+      #email="ngModel"
+      [(ngModel)]="newUser.email"
+      required
+      email
+    />
+    <!-- Message d'erreurs de l'input email -->
+    <div *ngIf="myForm.submitted && email.errors">
+      <span *ngIf="email.errors?.['required']">L'email est requis</span>
+      <span *ngIf="email.errors?.['email']">L'email est invalide</span>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <label for="password-user">password</label>
+    <input
+      placeholder="*"
+      id="password-user"
+      name="password-user"
+      type="password"
+      [(ngModel)]="newUser.password"
+      #password="ngModel"
+      minlength="8"
+      pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)"
+      required
+      password
+    />
+    <!-- Message d'erreurs de l'input password -->
+    <div *ngIf="myForm.submitted && password.errors">
+      <span *ngIf="password.errors?.['required']">Le password est requis</span>
+      <span *ngIf="password.errors?.['minlength']"
+        >Le password doit comporté minimum 8 caractères</span
+      >
+      <span *ngIf="password.errors?.['pattern']"
+        >Le password doit comporté au moins une lettre minuscule, une lettre
+        majuscule et un chiffre</span
+      >
+    </div>
+  </fieldset>
+
+  <p>*Informations requises</p>
+
+  <button type="reset">Restaurer</button>
+  <button type="submit">Sauvegarder</button>
+</form>
