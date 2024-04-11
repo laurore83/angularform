@@ -16,5 +16,6 @@ export class FormComponent {
 
   onSubmit(): void {
     console.log(this.newUser);
+    alert('formulaire envoyé');
   }
 }

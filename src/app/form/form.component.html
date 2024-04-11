@@ -1,4 +1,4 @@
-<form #myForm="ngForm" (ngSubmit)="onSubmit()">
+<form #myForm="ngForm" (ngSubmit)="myForm.valid && onSubmit()">
   <!-- Message d'erreurs du formulaire global -->
   <div>
     Form submitted ? {{ myForm.submitted }} Form valid ? {{ myForm.valid }} Form
@@ -80,19 +80,13 @@
       [(ngModel)]="newUser.password"
       #password="ngModel"
       minlength="8"
-      pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)"
       required
-      password
     />
     <!-- Message d'erreurs de l'input password -->
     <div *ngIf="myForm.submitted && password.errors">
       <span *ngIf="password.errors?.['required']">Le password est requis</span>
       <span *ngIf="password.errors?.['minlength']"
         >Le password doit comporté minimum 8 caractères</span
-      >
-      <span *ngIf="password.errors?.['pattern']"
-        >Le password doit comporté au moins une lettre minuscule, une lettre
-        majuscule et un chiffre</span
       >
     </div>
   </fieldset>
